@@ -1,0 +1,130 @@
+\documentclass[a4paper]{article}
+
+\author{Jan Hartstra} 
+\title{Sweave template}
+
+\usepackage{Sweave}
+\usepackage{hyperref}
+
+\begin{document}
+
+\maketitle
+
+\section{Sweave: Using R and \LaTeX\ to automatically create Reports}
+
+To use Sweave you need to have R and \LaTeX\ installed on your system.
+You also need a text editor to edit the \texttt{.Rnw} source file.
+
+\subsection{Installing R}
+
+The Comprehensive R Archive Network (CRAN) \url{https://cran.r-project.org/} provides 
+a lot of essential information on R.
+
+\subsubsection{Linux}
+
+Most Linux distributions will enable the installation of R using their package manager.
+
+\subsubsection{Windows}
+
+To do. 
+
+\subsection{Installing \LaTeX}
+
+\subsubsection{Linux}
+
+To do: TeX Live.
+
+\begin{itemize}
+   \item \url{https://www.tug.org/texlive/}
+   \item \url{https://www.tug.org/texlive/doc/texlive-en/texlive-en.html}
+\end{itemize}
+
+\subsubsection{Windows}
+
+To do: MikTeX.
+
+\url{https://miktex.org/}.
+
+The \texttt{Sweave.sty} style file should be available.
+
+\subsection{}
+
+\begin{verbatim}
+$ R CMD Sweave <filename>.Rnw
+$ pdflatex <filename>.tex
+\end{verbatim}
+
+The first command will run the R code (chunks) in the \texttt{.Rnw} file and include R code and corresponding output in the \texttt{.tex} file.
+The last command will run \LaTeX on the \texttt{.tex} and create a \texttt{.pdf} file. 
+
+\begin{verbatim}
+$ R CMD Stangle <filename>.Rnw
+$ R CMD BATCH <filename>.R
+\end{verbatim}
+
+The first command will extract the R code from the \texttt{.Rnw} file and create a \texttt{.R} file.
+The last command will create a \texttt{<filename>.Rout} file containing the R output.
+
+To view the PDF file, use something like:
+\begin{verbatim}
+$ evince <filename>.pdf &
+\end{verbatim}
+
+\begin{verbatim}
+$ R --gui=Tk &
+\end{verbatim}
+
+\section{Example}
+
+Create a vector with 100 normally distributed values with mean 0 and standard deviation 1.
+Calculate the mean and show a summary.
+<<>>=
+y <- rnorm(100)
+m <- mean(y)
+summary(y)
+@
+
+<<>>=
+print(m)
+@
+
+\subsection{Using figures}
+
+<<fig=TRUE,echo=FALSE>>=
+hist(y)
+@
+
+\section{Misc}
+
+%Below directory listing is created using the Vim command :r!ls -al sweave*
+\begin{verbatim}
+-rw-rw-r-- 1 jan jan   4603 nov 17 00:28 sweave-003.pdf
+-rw-rw-r-- 1 jan jan   1550 nov 17 00:29 sweave.aux
+-rw-rw-r-- 1 jan jan  20602 nov 17 00:29 sweave.log
+-rw-rw-r-- 1 jan jan    568 nov 17 00:29 sweave.out
+-rw-rw-r-- 1 jan jan 111603 nov 17 00:29 sweave.pdf
+-rw-rw-r-- 1 jan jan    246 nov 16 23:13 sweave.R
+-rw-rw-r-- 1 jan jan   2065 nov 17 11:32 sweave.Rnw
+-rw-rw-r-- 1 jan jan   1177 nov 16 23:51 sweave.Rout
+-rw-rw-r-- 1 jan jan   2058 nov 17 00:28 sweave.tex
+\end{verbatim}
+
+I think it would useful to use a makefile to combine the commands to generate the PDF file etc. \\
+TO DO: find out hoe to do this.
+
+\begin{itemize}
+   \item \url{https://jeromyanglim.blogspot.com/2010/11/makefiles-for-sweave-r-and-latex-using.html}
+   \item \url{https://www.r-bloggers.com/sweave-tutorial-1-using-sweave-r-and-make-to-generate-a-pdf-of-multiple-choice-questions/}
+\end{itemize}
+
+I used a very simple make file (named Makefile) to create the PDF file for this file
+\footnote{VIM: I used the \texttt{:r!cat Makefile} to insert the Makefile in the verbatim environment here.
+It should be noted that the Tabs might have caused some issues}.
+\begin{verbatim}
+all: 
+   R CMD Sweave sweave.Rnw
+   pdflatex sweave.tex
+\end{verbatim}
+Note that in the make file the indentation should be done using tabs!
+\end{document}
+
