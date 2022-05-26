@@ -117,8 +117,8 @@ TO DO: find out hoe to do this.
    \item \url{https://www.r-bloggers.com/sweave-tutorial-1-using-sweave-r-and-make-to-generate-a-pdf-of-multiple-choice-questions/}
 \end{itemize}
 
-I used a very simple make file (named Makefile) to create the PDF file for this file
-\footnote{VIM: I used the \texttt{:r!cat Makefile} to insert the Makefile in the verbatim environment here.
+I used a very simple make file (named makefile) to create the PDF file for this file
+\footnote{VIM: I used the \texttt{:r!cat makefile} to insert the makefile in the verbatim environment here.
 It should be noted that the Tabs might have caused some issues}.
 \begin{verbatim}
 all: 
